@@ -1,5 +1,54 @@
+
+running the test number 3
+Available GPUs:  1
+ngpu value:  3
+
+running the test number 2
+Available GPUs:  3
+ngpu value:  3
+Comes here but due to the Pytorch's bug it fails, if comes here, the test is passed.
+
+running the test number 1
+Available GPUs:  4
+ngpu value:  1
 Error in tests\test_model_creation.py:
+.E.
+======================================================================
+ERROR: test_multiple_gpus (__main__.TestMultiGPUHandling.test_multiple_gpus)
+----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "D:\CodeProjects\PythonProjs\DL Projects\DCGAN\tests\test_model_creation.py", line 4, in <module>
-    from main_model.DCGAN_model import create_generator_discriminator, Generator
-ModuleNotFoundError: No module named 'main_model'
+  File "D:\Program Files\Python\Python311\Lib\unittest\mock.py", line 1375, in patched
+    return func(*newargs, **newkeywargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CodeProjects\PythonProjs\DL Projects\DCGAN\tests\test_model_creation.py", line 33, in test_multiple_gpus
+    net = create_generator_discriminator(ngpu=ngpu_test, device=device_test,
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CodeProjects\PythonProjs\DL Projects\DCGAN\main_model\DCGAN_model.py", line 84, in create_generator_discriminator
+    net = nn.DataParallel(net, list(range(ngpu))).to(device)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CodeProjects\PythonProjs\DL Projects\DCGAN\DCGAN-env\Lib\site-packages\torch\nn\parallel\data_parallel.py", line 159, in __init__
+    _check_balance(self.device_ids)
+  File "D:\CodeProjects\PythonProjs\DL Projects\DCGAN\DCGAN-env\Lib\site-packages\torch\nn\parallel\data_parallel.py", line 26, in _check_balance
+    dev_props = _get_devices_properties(device_ids)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CodeProjects\PythonProjs\DL Projects\DCGAN\DCGAN-env\Lib\site-packages\torch\_utils.py", line 745, in _get_devices_properties
+    return [_get_device_attr(lambda m: m.get_device_properties(i)) for i in device_ids]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CodeProjects\PythonProjs\DL Projects\DCGAN\DCGAN-env\Lib\site-packages\torch\_utils.py", line 745, in <listcomp>
+    return [_get_device_attr(lambda m: m.get_device_properties(i)) for i in device_ids]
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CodeProjects\PythonProjs\DL Projects\DCGAN\DCGAN-env\Lib\site-packages\torch\_utils.py", line 724, in _get_device_attr
+    return get_member(torch.cuda)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CodeProjects\PythonProjs\DL Projects\DCGAN\DCGAN-env\Lib\site-packages\torch\_utils.py", line 745, in <lambda>
+    return [_get_device_attr(lambda m: m.get_device_properties(i)) for i in device_ids]
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CodeProjects\PythonProjs\DL Projects\DCGAN\DCGAN-env\Lib\site-packages\torch\cuda\__init__.py", line 448, in get_device_properties
+    return _get_device_properties(device)  # type: ignore[name-defined]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: device >= 0 && device < num_gpus INTERNAL ASSERT FAILED at "..\\aten\\src\\ATen\\cuda\\CUDAContext.cpp":50, please report a bug to PyTorch. device=, num_gpus=
+
+----------------------------------------------------------------------
+Ran 3 tests in 2.342s
+
+FAILED (errors=1)

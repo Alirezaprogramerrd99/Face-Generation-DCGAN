@@ -1,10 +1,10 @@
 Using device: cuda
-Epoch [1/5], Loss: 0.0864
-Epoch [2/5], Loss: 0.0141
-Epoch [3/5], Loss: 0.0194
-Epoch [4/5], Loss: 0.0102
-Epoch [5/5], Loss: 0.0004
+Epoch [1/5], Loss: 0.0234
+Epoch [2/5], Loss: 0.1976
+Epoch [3/5], Loss: 0.0018
+Epoch [4/5], Loss: 0.0033
+Epoch [5/5], Loss: 0.0016
 Training complete.
-Accuracy of the model on the 10000 test images: 99.17%
+Accuracy of the model on the 10000 test images: 99.10%
 The Actual test labels: [7 2 1 0 4 1 4 9 5 9 0 6 9 0 1]
 Predictions on test set: [7 2 1 0 4 1 4 9 5 9 0 6 9 0 1]
