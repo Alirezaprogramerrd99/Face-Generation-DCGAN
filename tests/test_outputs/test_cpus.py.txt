@@ -1,0 +1,5 @@
+Torch version:  2.3.1+cu121
+CUDA available:  True
+CUDA device count:  1
+CUDA device name:  NVIDIA GeForce GTX 1050 Ti
+Current CUDA device:  0

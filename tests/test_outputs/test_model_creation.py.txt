@@ -1,0 +1,5 @@
+Error in tests\test_model_creation.py:
+Traceback (most recent call last):
+  File "D:\CodeProjects\PythonProjs\DL Projects\DCGAN\tests\test_model_creation.py", line 4, in <module>
+    from main_model.DCGAN_model import create_generator_discriminator, Generator
+ModuleNotFoundError: No module named 'main_model'
