@@ -3,6 +3,10 @@ from tqdm.auto import tqdm
 from typing import Dict, List, Tuple
 import torchvision.utils as vutils
 from main_model.constants import num_epochs, nz
+import logging
+
+logging.basicConfig(filename='./DCGAN_log.log', level=logging.INFO,
+                    format='%(asctime)s - %(levelname)s - %(message)s')
 
 def train_step(netD: torch.nn.Module, 
                netG: torch.nn.Module,
@@ -72,6 +76,9 @@ def train_step(netD: torch.nn.Module,
         # Output training stats
         if i % 50 == 0:
             print('[%d/%d][%d/%d]\tLoss_D: %.4f\tLoss_G: %.4f\tD(x): %.4f\tD(G(z)): %.4f / %.4f'
+                  % (epoch, num_epochs, i, len(dataloader),
+                     errD.item(), errG.item(), D_x, D_G_z1, D_G_z2))
+            logging.info('[%d/%d][%d/%d]\tLoss_D: %.4f\tLoss_G: %.4f\tD(x): %.4f\tD(G(z)): %.4f / %.4f'
                   % (epoch, num_epochs, i, len(dataloader),
                      errD.item(), errG.item(), D_x, D_G_z1, D_G_z2))
             

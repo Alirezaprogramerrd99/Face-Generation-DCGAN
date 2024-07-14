@@ -17,13 +17,17 @@ from main_model.data_prepare import *
 from main_model.DCGAN_model import *
 from main_model.data_setup import create_dataloader
 from main_model.constants import *
-from main_model.utils import save_model
+from main_model.utils import *
 from main_model.engine import train_step
+import logging
+
 
 # Set random seed for reproducibility
 # # Set random seeds
 # torch.manual_seed(42)
 # torch.cuda.manual_seed(42)
+logging.basicConfig(filename='./DCGAN_log.log', level=logging.INFO,
+                    format='%(asctime)s - %(levelname)s - %(message)s')
 
 if __name__ == '__main__':
     manualSeed = 48
@@ -74,11 +78,12 @@ if __name__ == '__main__':
     print("fixed_noise's shape: ", fixed_noise.shape)
 
     print("Starting Training Loop...")
+    logging.info("Starting Training Loop...")
 
     img_list = []
     G_losses = []
     D_losses = []
-    
+
     for epoch in tqdm(range(num_epochs)):
         G_loss, D_loss = train_step(netD=netD, netG=netG, 
                                     epoch=epoch, dataloader=dataloader,
@@ -89,11 +94,13 @@ if __name__ == '__main__':
         G_losses.extend(G_loss)
         D_losses.extend(D_loss)
     
+    models_info_path = Path("models")
+    save_model(netD, models_info_path, "Generator.pth")
+    save_model(netG, models_info_path, "Discriminator.pth")
 
-    save_model(netD, "models", "Generator.pth")
-    save_model(netG, "models", "Discriminator.pth")
-    
-        
+    write_list_to_file(models_info_path / "G_losses.pkl", G_losses)
+    write_list_to_file(models_info_path / "D_losses.pkl", D_losses)
 
-
+    print("Models' trainning has been finished and saved.")
+    logging.info("Models' trainning has been finished and saved.")
     

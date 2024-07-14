@@ -1,8 +1,9 @@
 import torch
 from pathlib import Path
+import pickle
 
 def save_model(model: torch.nn.Module,
-               target_dir: str,
+               target_dir: Path,
                model_name: str):
   """Saves a PyTorch model to a target directory.
 
@@ -18,15 +19,23 @@ def save_model(model: torch.nn.Module,
                model_name="05_going_modular_tingvgg_model.pth")
   """
   # Create target directory
-  target_dir_path = Path(target_dir)
-  target_dir_path.mkdir(parents=True,
+  target_dir.mkdir(parents=True,
                         exist_ok=True)
 
   # Create model save path
   assert model_name.endswith(".pth") or model_name.endswith(".pt"), "model_name should end with '.pt' or '.pth'"
-  model_save_path = target_dir_path / model_name
+  model_save_path = target_dir / model_name
 
   # Save the model state_dict()
   print(f"[INFO] Saving model to: {model_save_path}")
   torch.save(obj=model.state_dict(),
              f=model_save_path)
+  
+def write_list_to_file(filename, num_list):
+  with open(filename, 'wb') as file:
+    pickle.dump(num_list, file)
+
+def read_list_from_file(filename):
+    with open(filename, 'rb') as file:
+        num_list = pickle.load(file)
+    return num_list

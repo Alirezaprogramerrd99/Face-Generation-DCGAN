@@ -6,8 +6,9 @@ __pycache__/
 # ignore all logs
 *.log
 
-# ignore pth files
+# ignore pth & pkl files
 *.pth
+*.pkl
 
 # ignoreing folders
 data/
