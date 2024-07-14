@@ -2,7 +2,7 @@ from torchvision import transforms
 import torch
 from torch.utils.data import DataLoader
 import torchvision.datasets as dset
-from constants import NUM_WORKERS
+from main_model.constants import NUM_WORKERS
 
 def create_dataloader(train_dir: str, 
                       transform: transforms.Compose, 
