@@ -1,0 +1,41 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# ignore all logs
+*.log
+
+# ignoreing folders
+data/
+
+# ignoring contents in the specified folders
+celeba_dataset/img_align_celeba.zip
+celeba_dataset/celeba
+
+# pipenv
+# Ignore virtual environment directories
+DCGAN-env/
+venv/
+.venv/
+env/
+.env/
+ENV/
+.env.bak/
+venv.bak/
+
+# Environments
+.env
+.env.*
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
