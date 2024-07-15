@@ -20,7 +20,7 @@ from main_model.constants import *
 from main_model.utils import *
 from main_model.engine import train_step
 import logging
-
+from PIL import Image
 
 # Set random seed for reproducibility
 # # Set random seeds
@@ -77,30 +77,47 @@ if __name__ == '__main__':
 
     print("fixed_noise's shape: ", fixed_noise.shape)
 
-    print("Starting Training Loop...")
-    logging.info("Starting Training Loop...")
-
-    img_list = []
-    G_losses = []
-    D_losses = []
-
-    for epoch in tqdm(range(num_epochs)):
-        G_loss, D_loss = train_step(netD=netD, netG=netG, 
-                                    epoch=epoch, dataloader=dataloader,
-                                    loss=loss, optimizerD=optimizerD,
-                                    optimizerG=optimizerG, img_list=img_list,
-                                    fixed_noise=fixed_noise, real_label=real_label,
-                                    fake_label=fake_label, device=device)
-        G_losses.extend(G_loss)
-        D_losses.extend(D_loss)
-    
     models_info_path = Path("models")
-    save_model(netG, models_info_path, "Generator.pth")
-    save_model(netD, models_info_path, "Discriminator.pth")
+    dir = os.listdir(models_info_path)
 
-    write_list_to_file(models_info_path / "G_losses.pkl", G_losses)
-    write_list_to_file(models_info_path / "D_losses.pkl", D_losses)
+    if len(dir) == 0: 
 
-    print("Models' trainning has been finished and saved.")
-    logging.info("Models' trainning has been finished and saved.")
-    
+        print("Starting Training Loop...")
+        logging.info("Starting Training Loop...")
+
+        img_list = []
+        G_losses = []
+        D_losses = []
+
+        for epoch in tqdm(range(num_epochs)):
+            G_loss, D_loss = train_step(netD=netD, netG=netG, 
+                                        epoch=epoch, dataloader=dataloader,
+                                        loss=loss, optimizerD=optimizerD,
+                                        optimizerG=optimizerG, img_list=img_list,
+                                        fixed_noise=fixed_noise, real_label=real_label,
+                                        fake_label=fake_label, device=device)
+            G_losses.extend(G_loss)
+            D_losses.extend(D_loss)
+        
+        
+        save_model(netG, models_info_path, "Generator.pth")
+        save_model(netD, models_info_path, "Discriminator.pth")
+
+        write_list_to_file(models_info_path / "G_losses.pkl", G_losses)
+        write_list_to_file(models_info_path / "D_losses.pkl", D_losses)
+
+        print("Models' trainning has been finished and saved.")
+        logging.info("Models' trainning has been finished and saved.")
+
+    else:
+        print("The saved model exists in the models folder.")
+        logging.info("The saved model exists in the models folder.")
+        logging.info("Loading the model...")
+        generator = load_model(netG, models_info_path, "Generator.pth", GPU=True)
+        generator.eval()
+
+        # generating images
+        images_path = Path("Images")
+        my_fake_image = generate_image(generator=generator)
+        pil_image = tensor_to_pil_image(my_fake_image)
+        save_image_as_jpg(pil_image, images_path / 'fake_image.jpg')
