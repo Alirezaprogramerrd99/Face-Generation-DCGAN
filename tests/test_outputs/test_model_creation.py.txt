@@ -49,6 +49,6 @@ Traceback (most recent call last):
 RuntimeError: device >= 0 && device < num_gpus INTERNAL ASSERT FAILED at "..\\aten\\src\\ATen\\cuda\\CUDAContext.cpp":50, please report a bug to PyTorch. device=, num_gpus=
 
 ----------------------------------------------------------------------
-Ran 3 tests in 2.342s
+Ran 3 tests in 2.469s
 
 FAILED (errors=1)

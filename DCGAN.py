@@ -52,7 +52,7 @@ if __name__ == '__main__':
     dataloader = create_dataloader(train_dir=image_path, transform=transform, batch_size= batch_size)
     # batch = next(iter(dataloader))
     # print("first batch's shape:", batch[0].shape)
-
+    logging.info(f"The device on which the models is going to be trained is: {device}")
     netG = create_generator_discriminator(ngpu, device, True, True)
     netD = create_generator_discriminator(ngpu, device, False, True)
 

@@ -7,7 +7,8 @@ ngpu = torch.cuda.device_count()
 device = torch.device("cuda" if (torch.cuda.is_available() and ngpu > 0) else "cpu")
 
 # Number of workers for dataloader
-NUM_WORKERS = os.cpu_count()
+# NUM_WORKERS = os.cpu_count()
+NUM_WORKERS = torch.cuda.device_count()
 
 # Batch size during training
 batch_size = 128
