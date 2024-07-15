@@ -42,7 +42,7 @@ if __name__ == '__main__':
     prepare_data(data_path, image_path, "img_align_celeba")
     walk_through_dir(image_path / "img_align_celeba")
 
-    transform = transform=transforms.Compose([
+    transform=transforms.Compose([
                 transforms.Resize(image_size),
                 transforms.CenterCrop(image_size),
                 transforms.ToTensor(),
@@ -117,7 +117,7 @@ if __name__ == '__main__':
         generator.eval()
 
         # generating images
-        images_path = Path("Images")
+        images_path = Path("generated-images")
         my_fake_image = generate_image(generator=generator)
         pil_image = tensor_to_pil_image(my_fake_image)
         save_image_as_jpg(pil_image, images_path / 'fake_image.jpg')

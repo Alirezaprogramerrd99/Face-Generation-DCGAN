@@ -79,7 +79,8 @@ def generate_image(generator: torch.nn.Module):
   return fake_image
 
 def tensor_to_pil_image(tensor: torch.Tensor):
-    transform = transforms.ToPILImage()
+    
+    transform = transforms.Compose([ transforms.Resize(256), transforms.ToPILImage()])
     return transform(tensor.squeeze(0))  # Remove the batch dimension if present
 
 # Save the PIL image as a JPG file
