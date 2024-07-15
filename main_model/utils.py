@@ -16,7 +16,7 @@ def save_model(model: torch.nn.Module,
   Example usage:
     save_model(model=model_0,
                target_dir="models",
-               model_name="05_going_modular_tingvgg_model.pth")
+               model_name="mymodel.pth")
   """
   # Create target directory
   target_dir.mkdir(parents=True,

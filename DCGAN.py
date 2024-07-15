@@ -95,8 +95,8 @@ if __name__ == '__main__':
         D_losses.extend(D_loss)
     
     models_info_path = Path("models")
-    save_model(netD, models_info_path, "Generator.pth")
-    save_model(netG, models_info_path, "Discriminator.pth")
+    save_model(netG, models_info_path, "Generator.pth")
+    save_model(netD, models_info_path, "Discriminator.pth")
 
     write_list_to_file(models_info_path / "G_losses.pkl", G_losses)
     write_list_to_file(models_info_path / "D_losses.pkl", D_losses)
